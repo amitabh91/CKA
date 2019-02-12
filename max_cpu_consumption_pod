@@ -1,0 +1,60 @@
+1.How to get max CPU consuming per pod and redirecting output to specified file
+   Ans:-  kubectl top pods -n $namespaces | sed -e 1d | sort -k3 -nr | awk '{print$1}' > $file_path
+
+Explanation
+
+Command:-kubectl top pods -n $namespaces
+
+Output 
+NAME                       CPU(cores)   MEMORY(bytes)   
+XXX-redis-8856h            3m           4Mi             
+XXX-redis-l4qxv            3m           3Mi             
+XXX-redis-qmc42            3m           3Mi             
+XXX-redis-sentinel-bnxp8   5m           2Mi             
+XXX-redis-sentinel-fzhrx   4m           1Mi             
+XXX-redis-sentinel-rr5mx   4m           1Mi             
+XXX-redis-vzh7h            4m           4Mi   
+
+Command:- kubectl top pods -n $namespaces| sed -e 1d
+
+Output 
+
+XXX-redis-8856h            3m           4Mi             
+XXX-redis-l4qxv            3m           3Mi             
+XXX-redis-qmc42            3m           3Mi             
+XXX-redis-sentinel-bnxp8   5m           2Mi             
+XXX-redis-sentinel-fzhrx   4m           1Mi             
+XXX-redis-sentinel-rr5mx   4m           1Mi             
+XXX-redis-vzh7h            4m           4Mi 
+
+Command:-  kubectl top pods -n $namespaces | sed -e 1d | sort -k3
+
+Output 
+XXX-redis-sentinel-fzhrx   4m           1Mi             
+XXX-redis-sentinel-rr5mx   4m           1Mi             
+XXX-redis-sentinel-bnxp8   5m           2Mi             
+XXX-redis-8856h            3m           3Mi             
+XXX-redis-l4qxv            3m           3Mi             
+XXX-redis-qmc42            3m           3Mi             
+XXX-redis-vzh7h            3m           4Mi
+
+Command:- kubectl top pods -n $namespaces | sed -e 1d | sort -k3 -nr
+
+Output
+XXX-redis-vzh7h            4m           4Mi             
+XXX-redis-qmc42            3m           3Mi             
+XXX-redis-l4qxv            3m           3Mi             
+XXX-redis-8856h            3m           3Mi             
+XXX-redis-sentinel-bnxp8   4m           2Mi             
+XXX-redis-sentinel-rr5mx   4m           1Mi             
+XXX-redis-sentinel-fzhrx   4m           1Mi  
+
+Command:- kubectl top pods -n $namespaces | sed -e 1d | sort -k3 -nr | awk '{print$1}'
+
+XXX-redis-vzh7h
+XXX-redis-qmc42
+XXX-redis-l4qxv
+XXX-redis-8856h
+XXX-redis-sentinel-bnxp8
+XXX-redis-sentinel-rr5mx
+XXX-redis-sentinel-fzhrx
