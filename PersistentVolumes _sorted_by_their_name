@@ -1,0 +1,2 @@
+1.List all PersistentVolumes sorted by their name and redirecting output to specified file
+kubectl get pvc --all-namespaces --sort-by=.spec.resources.requests.storage > $filepath
